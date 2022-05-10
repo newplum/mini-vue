@@ -23,6 +23,7 @@ class RefImpl {
   set value (newValue) {
     if (hasChange(newValue, this._rawValue)) {
       this._value = convert(newValue)
+      this._rawValue = newValue
       triggerEffect(this.deps)
     }
   }
