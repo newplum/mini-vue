@@ -3,11 +3,11 @@ import { extend } from '../share'
 let activeEffect: ReactiveEffect
 let shouldTrack = false
 
-class ReactiveEffect {
+export class ReactiveEffect {
   deps: Array<Set<ReactiveEffect>> = []
   active = true
   onStop?: () => void
-  constructor(private _fn: any, public scheduler) {}
+  constructor(private _fn: any, public scheduler?) {}
   run() {
     if (!this.active) {
       return this._fn()
