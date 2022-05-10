@@ -79,12 +79,17 @@ export function track(target, key) {
     dep = new Set()
     depsMap.set(key, dep)
   }
-  if (dep.has(activeEffect)) return
+  trackEffect(dep)
+ }
+
+export function trackEffect(dep) {
+ if (dep.has(activeEffect)) return
   dep.add(activeEffect) // 将 activeEffect 对象存到 dep 中，用于在 set 时调用
   activeEffect.deps.push(dep) // 将 dep 存到 activeEffect 对象中， 用于 stop 时删除依赖关系
+
 }
 
-function isTracking () {
+export function isTracking () {
   return shouldTrack && activeEffect !== undefined
 }
 
@@ -96,7 +101,11 @@ function isTracking () {
 export function trigger(target, key) {
   const depsMap = targetMap.get(target)
   const dep = depsMap.get(key)
-  // 遍历该 dep 拿到所有的依赖关系，并执行
+  triggerEffect(dep)
+}
+
+export function triggerEffect(dep) {
+// 遍历该 dep 拿到所有的依赖关系，并执行
   for (const effect of dep) {
     if (effect.scheduler) {
       effect.scheduler()
