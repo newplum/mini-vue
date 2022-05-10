@@ -7,6 +7,7 @@ class RefImpl {
   private _value: any;
   deps: any;
   private _rawValue: any;
+  private __v_isRef = true
   constructor (val) {
     this.deps = new Set()
     this._rawValue = val
@@ -42,4 +43,13 @@ if (isTracking()) {
 
 export function ref(raw) {
   return new RefImpl(raw)
+}
+
+
+export function isRef(ref) {
+  return !!ref.__v_isRef
+}
+
+export function unRef(ref) {
+  return isRef(ref) ? ref.value : ref
 }
