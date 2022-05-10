@@ -14,9 +14,7 @@ class RefImpl {
   }
 
   get value () {
-    if (isTracking()) {
-      trackEffect(this.deps)
-    }
+    trackRefValue(this)
     return this._value
   }
 
@@ -32,6 +30,12 @@ class RefImpl {
 
 function convert(val) {
   return isObject(val) ? reactive(val) :val
+}
+
+function trackRefValue (ref) {
+if (isTracking()) {
+      trackEffect(ref.deps)
+    }
 }
 
 
