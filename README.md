@@ -2,7 +2,6 @@
 
 ### reactivity
 - reactive
-  
   - [x] isReactive
   - [x] nested reactive
   - [x] isProxy
