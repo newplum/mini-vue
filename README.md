@@ -20,3 +20,5 @@
   - [x] unRef
   - [x] proxyRefs
 - [x] computed
+### runtime-core
+ - [x] 初始化element主流程
