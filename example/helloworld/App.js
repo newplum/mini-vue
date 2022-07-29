@@ -1,7 +1,10 @@
-import {h} from '../../lib/mini-vue.esm.js';
+import { h } from '../../lib/mini-vue.esm.js';
 export default  {
   render () {
-    return h('div', 'hi, ' +  this.title)
+    return h('div', {id: 'root'}, [
+      h('p', {class: 'red'}, 'hi'),
+      h('p', {style: 'color:blue'}, 'mini-vue'),
+    ]);
   },
 
   setup () {
