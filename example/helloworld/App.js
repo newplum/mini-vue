@@ -1,15 +1,18 @@
 import { h } from '../../lib/mini-vue.esm.js';
+window.self = null
 export default  {
   render () {
-    return h('div', {id: 'root'}, [
-      h('p', {class: 'red'}, 'hi'),
-      h('p', {style: 'color:blue'}, 'mini-vue'),
-    ]);
+    window.self = this
+    // return h('div', {id: 'root'}, [
+    //   h('p', {class: 'red'}, 'hi'),
+    //   h('p', {style: 'color:blue'}, 'mini-vue'),
+    // ]);
+    return h('div', null, `hi, ${this.msg}`)
   },
 
   setup () {
     return {
-      title: 'mini-vue'
+      msg: 'mini-vue'
     }
   }
 }

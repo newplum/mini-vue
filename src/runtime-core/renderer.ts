@@ -18,23 +18,6 @@ function patch(vnode: any, container: any) {
   
 }
 
-function processComponent(vnode: any, container: any) {
-  // 将组件挂载到container
-  mountComponent(vnode, container)
-}
-
-function mountComponent(vnode: any, container) {
-  // 创建组件实例
-  const instance = createComponentInstance(vnode)
-  setupComponent(instance)
-  setupRenderEffect(instance, container)
-}
-
-function setupRenderEffect(instance: any, container) {
-  const subTree = instance.render()
-  patch(subTree, container)
-}
-
 function processElement(vnode: any, container: any) {
   // 处理 element 类型分为两种情况
   // 1. 初始化
@@ -46,7 +29,7 @@ function processElement(vnode: any, container: any) {
 function mountElement(vnode: any, container: any) {
   const {type, props, children} = vnode
   // 创建真实的dom
-  const el = document.createElement(type)
+  const el = (vnode.el = document.createElement(type))
   // 添加属性
   for (const key in props) {
     if (props.hasOwnProperty(key)) {
@@ -71,4 +54,26 @@ function mountChildren(children: any[], el: any) {
       patch(child, el)
     })
 }
+
+function processComponent(vnode: any, container: any) {
+  // 将组件挂载到container
+  mountComponent(vnode, container)
+}
+
+function mountComponent(initialVNode: any, container) {
+  // 创建组件实例
+  const instance = createComponentInstance(initialVNode)
+  setupComponent(instance)
+  setupRenderEffect(instance, container)
+}
+
+function setupRenderEffect(instance: any, container) {
+  const { proxy, vnode } = instance
+  const subTree = instance.render.call(proxy)
+  patch(subTree, container)
+  
+  vnode.el = subTree.el
+}
+
+
 
