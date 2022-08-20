@@ -24,3 +24,4 @@
  - [x] 初始化element主流程
  - [x] 使用rollup打包库
  - [x] 实现组件代理对象
+ - [x] 实现shapeFlag
