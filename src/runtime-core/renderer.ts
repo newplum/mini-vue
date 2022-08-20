@@ -33,7 +33,7 @@ function mountElement(vnode: any, container: any) {
   // 创建真实的dom
   const el = (vnode.el = document.createElement(type))
   // 添加属性
-  const isOn = (key: string) => /^on[A-Z]/.test(key)
+  const isOn = (key: string) => /^on[A-Z]/.test(key) // 判断是不是 on开头的事件属性
   for (const key in props) {
     if (props.hasOwnProperty(key)) {
       if (isOn(key)) {

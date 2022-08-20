@@ -1,5 +1,14 @@
 import { h } from '../../lib/mini-vue.esm.js';
 window.self = null
+
+const Foo = {
+  setup (props) {
+    console.log(props)
+  },
+  render () {
+    return h('div', {}, 'foo: ' + this.count)
+  }
+}
 export default  {
   render () {
     window.self = this
@@ -8,10 +17,13 @@ export default  {
     //   h('p', {style: 'color:blue'}, 'mini-vue'),
     // ]);
     return h('div', {
-      onMouseover: function mouseover () {
-        console.log('mouseover');
+      onClick: function mouseover () {
+        console.log('Click');
       }
-    }, `hi, ${this.msg}`)
+    }, [
+      h('p', {}, `hi, ${this.msg}`),
+      h(Foo, {count: 2}),
+    ])
   },
 
   setup () {
