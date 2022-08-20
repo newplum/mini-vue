@@ -7,7 +7,11 @@ export default  {
     //   h('p', {class: 'red'}, 'hi'),
     //   h('p', {style: 'color:blue'}, 'mini-vue'),
     // ]);
-    return h('div', null, `hi, ${this.msg}`)
+    return h('div', {
+      onMouseover: function mouseover () {
+        console.log('mouseover');
+      }
+    }, `hi, ${this.msg}`)
   },
 
   setup () {

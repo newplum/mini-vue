@@ -33,9 +33,15 @@ function mountElement(vnode: any, container: any) {
   // 创建真实的dom
   const el = (vnode.el = document.createElement(type))
   // 添加属性
+  const isOn = (key: string) => /^on[A-Z]/.test(key)
   for (const key in props) {
     if (props.hasOwnProperty(key)) {
-      el.setAttribute(key, props[key])
+      if (isOn(key)) {
+        const eventName = key.slice(2).toLowerCase()
+        el.addEventListener(eventName, props[key])
+      } else {
+        el.setAttribute(key, props[key])
+      }
     }
   }
   // 渲染子节点
