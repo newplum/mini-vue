@@ -2,11 +2,18 @@ import { h } from '../../lib/mini-vue.esm.js';
 window.self = null
 
 const Foo = {
-  setup (props) {
-    console.log(props)
+  setup (props, {emit}) {
+    const emitAdd = () => {
+      emit('add', {a:1})
+    }
+    return {
+      emitAdd
+    }
   },
   render () {
-    return h('div', {}, 'foo: ' + this.count)
+    return h('button', {
+      onClick: this.emitAdd
+    }, 'add')
   }
 }
 export default  {
@@ -16,13 +23,15 @@ export default  {
     //   h('p', {class: 'red'}, 'hi'),
     //   h('p', {style: 'color:blue'}, 'mini-vue'),
     // ]);
-    return h('div', {
-      onClick: function mouseover () {
-        console.log('Click');
-      }
-    }, [
+    return h('div', {}, [
       h('p', {}, `hi, ${this.msg}`),
-      h(Foo, {count: 2}),
+      h(Foo, {
+        count: 2,
+        onAdd(arg) {
+          console.log('Add 触发了')
+          console.log(arg)
+        }
+      }),
     ])
   },
 

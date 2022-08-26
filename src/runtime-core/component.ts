@@ -1,4 +1,5 @@
 import { shallowReadonly } from "../reactivity/reactive"
+import { emit } from "./componentEmit"
 import { initProps } from "./componentProps"
 import { publicInstanceProxyHandlers } from "./componentPublicInstance"
 
@@ -7,9 +8,11 @@ import { publicInstanceProxyHandlers } from "./componentPublicInstance"
      vnode,
      type: vnode.type,
      setupState: {},
-     props: {}
+     props: {},
+     emit: () => {}
    }
-   return componentInstance
+  componentInstance.emit = emit.bind(null, componentInstance) as any
+  return componentInstance
  }
 
  export function setupComponent(instance) {
@@ -25,9 +28,10 @@ function setupStatefulComponent(instance: any) {
     // 将组件的状态挂载到组件实例中
     const Component = instance.type
     instance.proxy = new Proxy({_: instance}, publicInstanceProxyHandlers)
+    const { emit } = instance
     const { setup } = Component
     if (setup) {
-      const setupResult = setup(shallowReadonly(instance.props))
+      const setupResult = setup(shallowReadonly(instance.props), { emit })
       handleSetupResult(instance,setupResult)
     }
 }
