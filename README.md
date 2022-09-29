@@ -25,3 +25,5 @@
  - [x] 使用rollup打包库
  - [x] 实现组件代理对象
  - [x] 实现shapeFlag
+ - [x] 实现shapeFlag
+ - [x] 实现props,emit,slots
