@@ -4,6 +4,10 @@ export const isObject = (val) => {
   return val !== null && typeof val === 'object'
 }
 
+export const isFn = (val) => {
+  return val !== null && typeof val === 'function'
+}
+
 export const hasChange = (newValue, oldValue) => {
   return !Object.is(newValue, oldValue)
 }
